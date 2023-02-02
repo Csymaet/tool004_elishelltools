@@ -9,8 +9,17 @@
 
 # 我的答案！
 filenames=$(find ./ -name "*|*")
+if [ -z "$filenames" ]
+then
+  exit 0
+else
+  filenames=$(find ./ -name "*|*" -print0| xargs -0 ls)
+fi
 
+OLDIFS="$IFS"  #备份旧的IFS变量
+IFS=$'\n'   #修改分隔符为换行符
 for f in $filenames
 do
   mv $f ${f/|/_}; 
 done
+IFS=$OLDIFS
