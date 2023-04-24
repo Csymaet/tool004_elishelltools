@@ -7,13 +7,12 @@ paths=(
   "/etc/sddm.conf.d/sddm.conf"            # sddm
   "${HOME}/.gitconfig"                    # git
   "${HOME}/.SpaceVim.d/init.toml"         # spacevim
-  "${HOME}/.config/pgcli/config"          # pgcli
-  "${HOME}/.config/i3/config"             # i3
+  "${HOME}/.config/pgcli"                 # pgcli
+  "${HOME}/.config/i3"                    # i3
   "${HOME}/.zshrc"                        # zsh
-  "${HOME}/.local/share/jrnl/journal.txt" # jrnl
+  "${HOME}/.config/jrnl/jrnl.yaml"        # jrnl
 )
 
-# sudo cp
 sudo_paths=(
   "/etc/sudoers"                          # pacman
 )
@@ -21,7 +20,7 @@ sudo_paths=(
 # 使用 for 循环遍历数组，将文件复制到 指定 目录
 for path in "${paths[@]}"
 do
-  cp $path ./cardbox/016-config_box    # 复制文件到 指定 目录
+  cp -r $path ./cardbox/016-config_box    # 复制文件到 指定 目录
 done
 
 for path in "${sudo_paths[@]}"
