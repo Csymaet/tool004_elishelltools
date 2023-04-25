@@ -1,34 +1,48 @@
 #!/bin/bash
-# 1. 读取账单csv，并记入数据库
-#   awk分类汇总，筛选年月
-#   pgsql记入数据库
-# 2. 修改个别字段
-# 3. 显示数据？
+# 1. 读取账单csv
+# 2. awk筛选年月，汇总数据
+# 3. 记入数据库
 
 set -euo pipefail
 
 run(){
-  local oper="a"
-  local csvfile="./bills.csv"
-  local month=0
+  local csvfile=""
+  local date_prefix=""
+  local comment=""
   
-  while getopts o:c:m: option
+  while getopts f:d:c: option
   do
-    case ""${option}""
-      in
-      o) oper=${OPTARG};;
-      c) csvfile=${OPTARG};;
-      m) month=${OPTARG};;
+    case ""${option}"" in
+      f) csvfile=${OPTARG};;
+      d) date_prefix=${OPTARG};;
+      c) comment=${OPTARG};;
       *);;
     esac
   done
 
-  test ${csvfile}
+  if [ -z "$csvfile" ]; then
+    echo "Error: 请通过-f参数填写csv文件路径"
+    exit 1
+  fi
+
+  if [ -z "$date_prefix" ]; then
+    echo "Error: 请通过-d参数填写日期前缀"
+    exit 1
+  fi
+
+  local result1=$(sum ${csvfile} ${date_prefix} "运动")
+  local result2=$(sum ${csvfile} ${date_prefix} "三餐")
+  echo $result1 $result2
+
+  psql << EOF
+    select * from money.bill where id < 3;
+EOF
+
+  echo $comment
 }
 
-test(){
-  local sum=$(awk -F, 'BEGIN {sum=0} {if($4=="\"支出\"") {gsub("\"","",$5); sum+=$5}} END {print sum}' ./bills.csv)
-  echo 总支出：${sum}
+sum(){
+  echo $(awk -F, -v d=\"$2 -v t=\"$3\" 'BEGIN {sum=0} {if($4=="\"支出\"" && $2 ~ "^" d && $3==t) {gsub("\"","",$5); sum+=$5}} END {print sum}' $1)
 }
 
 run "$@"
