@@ -68,8 +68,11 @@ run(){
 
   local result29=$comment
 
+  # 插入数据
   psql << EOF
-    select * from money.bill where id < 3;
+    INSERT INTO money.bill(
+	    "时间", "学习", "房租", "水电", "三餐", "果坚奶", "零食", "长途交通", "短途交通", "运动", "娱乐", "医疗", "社交", "旅行", "生活", "通讯", "家人", "树", "利息", "公益", "主业", "奖金", "副业", "其它", "场内收益", "且慢收益", "无风险收益", "描述")
+	    VALUES ('$result2', $result3, $result4, $result5, $result6, $result7, $result8, $result9, $result10, $result11, $result12, $result13, $result14, $result15, $result16, $result17, $result18, $result19, $result20, $result21, $result22, $result23, $result24, $result25, $result26, $result27, $result28, '$result29');
 EOF
 
   echo $comment
