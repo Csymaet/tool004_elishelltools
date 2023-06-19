@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo -e "\e[33m开始拉取\e[0m"
+
 git pull
 result=$(git pull)
 echo $result
