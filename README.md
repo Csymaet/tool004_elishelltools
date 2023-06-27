@@ -1,12 +1,14 @@
 # tool004_elishelltools
 
-#### 介绍
+[中文](./README.zh.md)|[English](./README.md)
 
-仅仅是一些shell练习
+#### Introduction
 
-* `1.batch_replace_file_names.sh`: 批量改文件名。
-* `2.sync_git.sh`: git一键同步脚本(先拉取，然后提交、上传所有)
-* `3.count_files.sh`: 递归统计文件夹下的文件数。
-* `4.billhelper.sh`: 读取"钱迹"app导出的csv文件，将账单数据汇总到postgresql数据库中。
-* `5.backup_configs.sh`: 在数组中写下文件的路径，一键备份这些文件到指定目录。
-* `6.sort_markdown_table.sh`: 对markdown表格按指定列排序
+Just some shell exercises.
+
+* `1.batch_replace_file_names.sh`: Batch rename files.
+* `2.sync_git.sh`: A script for syncing git with one click (pull, commit, and push all changes).
+* `3.count_files.sh`: Recursively count the number of files in a folder.
+* `4.billhelper.sh`: Read CSV files exported from the "钱迹" app and aggregate the bill data into a PostgreSQL database.
+* `5.backup_configs.sh`: Specify the file paths in an array and backup these files to a specified directory with one click.
+* `6.sort_markdown_table.sh`: Sort Markdown tables by a specified column.
