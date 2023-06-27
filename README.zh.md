@@ -1,6 +1,6 @@
 # tool004_elishelltools
 
-[中文](./README.zh.md)|[English](./README.md)
+中文|[English](./README.md)
 
 #### 介绍
 
