@@ -6,7 +6,15 @@ find_extension() {
   find "${1}" -type f | awk -F . '{print $NF}' | sort | uniq -c
 }
 
-find_extension "./learn"
-find_extension "./cardbox"
-find_extension "./plan"
-find_extension "./record"
+filenames=$(ls)
+
+OLDIFS="$IFS"  #备份旧的IFS变量
+IFS=$'\n'   #修改分隔符为换行符
+for f in $filenames
+do
+  if [ -d "$f" ]
+  then
+    find_extension $f
+  fi
+done
+IFS=$OLDIFS
