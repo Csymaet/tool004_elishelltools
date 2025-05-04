@@ -3,8 +3,11 @@ chcp 65001 >nul
 setlocal enabledelayedexpansion
 
 :: 设置颜色
-set "yellow=[33m"
-set "reset=[0m"
+for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
+  set "ESC=%%b"
+)
+set "yellow=%ESC%[33m"
+set "reset=%ESC%[0m"
 
 :: 显示开始提示
 echo %yellow%正在从远程仓库拉取最新代码...%reset%
