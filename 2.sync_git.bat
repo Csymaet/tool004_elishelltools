@@ -2,15 +2,11 @@
 chcp 65001 >nul
 setlocal enabledelayedexpansion
 
-:: 设置颜色
-for /F "tokens=1,2 delims=#" %%a in ('"prompt #$H#$E# & echo on & for %%b in (1) do rem"') do (
-  set "ESC=%%b"
-)
-set "yellow=%ESC%[33m"
-set "reset=%ESC%[0m"
+:: 设置颜色 - 使用原生color命令
+color 07
 
 :: 显示开始提示
-echo %yellow%正在从远程仓库拉取最新代码...%reset%
+echo 正在从远程仓库拉取最新代码...
 
 :: 执行git pull操作
 git pull > git_pull_result.tmp 2>&1
@@ -21,24 +17,24 @@ findstr /C:"Already up to date." /C:"已经是最新的" git_pull_result.tmp >nu
 
 if %ERRORLEVEL% EQU 0 (
     :: 如果已是最新，执行提交流程
-    echo %yellow%本地已是最新版本，正在提交本地更改...%reset%
+    echo 本地已是最新版本，正在提交本地更改...
     
     :: 添加所有更改的文件
     git add .
-    echo %yellow%已添加更改的文件%reset%
+    echo 已添加更改的文件
     
     :: 提交更改
     git commit -m "note"
-    echo %yellow%已提交更改%reset%
+    echo 已提交更改
     
     :: 推送更改到远程仓库
     git push
-    echo %yellow%更改已推送到远程仓库%reset%
+    echo 更改已推送到远程仓库
     
-    echo %yellow%上传完成！%reset%
+    echo 上传完成！
 ) else (
     :: 如果不是最新，显示提示
-    echo %yellow%拉取完成，本地代码已更新，请解决可能的冲突后再次运行脚本进行提交%reset%
+    echo 拉取完成，本地代码已更新，请解决可能的冲突后再次运行脚本进行提交
 )
 
 :: 删除临时文件
@@ -46,5 +42,5 @@ del git_pull_result.tmp
 
 :: 等待用户按任意键退出
 echo.
-echo %yellow%按任意键退出...%reset%
+echo 按任意键退出...
 pause >nul 
