@@ -2,10 +2,6 @@
 
 using System;
 using System.Diagnostics;
-using System.Linq;
-
-// 检查是否传入了--no-pause参数
-bool shouldPause = !Args.Any(arg => arg == "--no-pause");
 
 Console.ForegroundColor = ConsoleColor.Yellow;
 Console.WriteLine("开始拉取");
@@ -27,14 +23,10 @@ if (result.Contains("Already up to date.") || result.Contains("已经是最新�
     Console.WriteLine("上传结束");
 }
 
-// 只在Windows环境下或未指定--no-pause时等待按键
-if (shouldPause)
-{
-    Console.ForegroundColor = ConsoleColor.Yellow;
-    Console.WriteLine("按任意键退出");
-    Console.ResetColor();
-    Console.ReadKey(true);
-}
+Console.ForegroundColor = ConsoleColor.Yellow;
+Console.WriteLine("按任意键退出");
+Console.ResetColor();
+Console.ReadKey(true);
 
 string ExecuteGitCommand(string arguments)
 {
