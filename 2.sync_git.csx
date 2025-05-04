@@ -24,9 +24,9 @@ if (result.Contains("Already up to date.") || result.Contains("已经是最新�
 }
 
 Console.ForegroundColor = ConsoleColor.Yellow;
-Console.WriteLine("按任意键退出");
+Console.WriteLine("按回车键退出");
 Console.ResetColor();
-Console.ReadKey(true);
+Console.ReadLine();
 
 string ExecuteGitCommand(string arguments)
 {
